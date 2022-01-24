@@ -1,0 +1,4 @@
+name: AprilFools2022
+main: net.azisaba.aprilFools2022.plugin.AprilFools2022Plugin
+version: @version@
+api-version: 1.13
