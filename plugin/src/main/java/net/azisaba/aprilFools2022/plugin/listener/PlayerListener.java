@@ -25,7 +25,6 @@ public class PlayerListener implements Listener {
             e.setUseInteractedBlock(Event.Result.DENY);
             ChannelHandler handler = PacketUtil.getChannelHandler(e.getPlayer());
             if (handler != null) {
-                e.getPlayer().sendMessage("Whoops");
                 handler.freeze();
             }
         }
