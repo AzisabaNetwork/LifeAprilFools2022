@@ -54,7 +54,7 @@ public class AprilFools2022Plugin extends JavaPlugin {
             schedule();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 for (ItemStack stack : player.getInventory()) {
-                    if (AprilFools2022.getVersionDependant().isRiceCooker(stack)) {
+                    if (stack != null && AprilFools2022.getVersionDependant().isRiceCooker(stack)) {
                         ChannelHandler handler = PacketUtil.getChannelHandler(player);
                         if (handler != null) {
                             handler.freeze();
