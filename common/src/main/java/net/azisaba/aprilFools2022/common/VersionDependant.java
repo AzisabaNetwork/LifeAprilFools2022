@@ -18,6 +18,7 @@ public interface VersionDependant {
         return item.getType() == getSteak() &&
                 item.hasItemMeta() &&
                 item.getItemMeta().hasDisplayName() &&
+                item.getItemMeta().hasLore() &&
                 ChatColor.stripColor(item.getItemMeta().getDisplayName()).contains("\u708a\u98ef\u5668");
     }
 }
