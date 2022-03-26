@@ -12,10 +12,10 @@ public interface VersionDependant {
     Channel getChannel(@NotNull Player player);
 
     @NotNull
-    Material getWheatSeeds();
+    Material getSteak();
 
     default boolean isRiceCooker(@NotNull ItemStack item) {
-        return item.getType() == getWheatSeeds() &&
+        return item.getType() == getSteak() &&
                 item.hasItemMeta() &&
                 item.getItemMeta().hasDisplayName() &&
                 ChatColor.stripColor(item.getItemMeta().getDisplayName()).contains("\u708a\u98ef\u5668");

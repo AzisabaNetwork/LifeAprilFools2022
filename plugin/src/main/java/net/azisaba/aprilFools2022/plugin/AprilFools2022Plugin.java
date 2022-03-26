@@ -2,6 +2,7 @@ package net.azisaba.aprilFools2022.plugin;
 
 import net.azisaba.aprilFools2022.common.AprilFools2022;
 import net.azisaba.aprilFools2022.common.packet.handler.ChannelHandler;
+import net.azisaba.aprilFools2022.plugin.listener.MaxFoodLevelListener;
 import net.azisaba.aprilFools2022.plugin.listener.PlayerListener;
 import net.azisaba.aprilFools2022.common.util.PacketUtil;
 import org.bukkit.Bukkit;
@@ -31,6 +32,9 @@ public class AprilFools2022Plugin extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        if (getConfig().getBoolean("max-food-level-on-ate-rice-cooker", false)) {
+            getServer().getPluginManager().registerEvents(new MaxFoodLevelListener(), this);
+        }
         for (Player player : Bukkit.getOnlinePlayers()) {
             PacketUtil.inject(player);
         }
@@ -59,6 +63,6 @@ public class AprilFools2022Plugin extends JavaPlugin {
                     }
                 }
             }
-        }, 20 * 60 + RANDOM.nextInt(20 * 60 * 5)); // 1m - 6m
+        }, 20 * 60 * 5 + RANDOM.nextInt(20 * 60 * 5)); // 5m - 10m
     }
 }

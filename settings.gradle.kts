@@ -1,7 +1,8 @@
 rootProject.name = "AprilFools_2022"
 include("plugin")
 include("common")
-include("v1_18")
+include("v1_18_R2")
+include("v1_18_R1")
 include("v1_17")
 include("v1_16_R3")
 include("v1_15_R1")

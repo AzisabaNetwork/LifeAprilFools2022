@@ -14,7 +14,7 @@ public class VersionDependantImpl implements VersionDependant {
     }
 
     @Override
-    public @NotNull Material getWheatSeeds() {
-        return Material.SEEDS;
+    public @NotNull Material getSteak() {
+        return Material.COOKED_BEEF;
     }
 }
