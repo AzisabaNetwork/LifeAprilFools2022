@@ -38,3 +38,11 @@ subprojects {
         compileOnly("io.netty:netty-all:4.1.68.Final")
     }
 }
+
+allprojects {
+    tasks {
+        compileJava {
+            options.encoding = "UTF-8"
+        }
+    }
+}

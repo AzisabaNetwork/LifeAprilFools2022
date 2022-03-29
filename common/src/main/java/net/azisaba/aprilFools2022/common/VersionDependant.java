@@ -21,4 +21,6 @@ public interface VersionDependant {
                 item.getItemMeta().hasLore() &&
                 ChatColor.stripColor(item.getItemMeta().getDisplayName()).contains("\u708a\u98ef\u5668");
     }
+
+    void createExplosionEffect(@NotNull Player player, float deltaX, float deltaY, float deltaZ, float pitch);
 }

@@ -1,21 +1,24 @@
 package net.azisaba.aprilFools2022.plugin;
 
 import net.azisaba.aprilFools2022.common.AprilFools2022;
-import net.azisaba.aprilFools2022.common.packet.handler.ChannelHandler;
+import net.azisaba.aprilFools2022.common.util.PacketUtil;
 import net.azisaba.aprilFools2022.plugin.listener.MaxFoodLevelListener;
 import net.azisaba.aprilFools2022.plugin.listener.PlayerListener;
-import net.azisaba.aprilFools2022.common.util.PacketUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class AprilFools2022Plugin extends JavaPlugin {
     private static final Random RANDOM = new Random();
+    public static final Map<UUID, Double> LAST_DAMAGE = new HashMap<>();
     private static AprilFools2022Plugin instance;
 
     @NotNull
@@ -50,19 +53,31 @@ public class AprilFools2022Plugin extends JavaPlugin {
     }
 
     public void schedule() {
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-            schedule();
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                for (ItemStack stack : player.getInventory()) {
-                    if (stack != null && AprilFools2022.getVersionDependant().isRiceCooker(stack)) {
-                        ChannelHandler handler = PacketUtil.getChannelHandler(player);
-                        if (handler != null) {
-                            handler.freeze();
+                if (!player.isDead() && RANDOM.nextInt(3600) < 10) {
+                    // 1 in ~3 minutes
+                    for (ItemStack stack : player.getInventory()) {
+                        if (stack != null && AprilFools2022.getVersionDependant().isRiceCooker(stack)) {
+                            int count = RANDOM.nextInt(25) + 1;
+                            for (int i = 0; i < count; i++) {
+                                Bukkit.getScheduler().runTaskLater(this, () -> {
+                                    float deltaX = RANDOM.nextFloat() - 0.5f;
+                                    float deltaY = RANDOM.nextFloat() - 0.5f;
+                                    float deltaZ = RANDOM.nextFloat() - 0.5f;
+                                    float pitch = RANDOM.nextFloat();
+                                    AprilFools2022.getVersionDependant().createExplosionEffect(player, deltaX, deltaY, deltaZ, pitch);
+                                    double damage = RANDOM.nextInt(150 + 1) / 100.0;
+                                    LAST_DAMAGE.put(player.getUniqueId(), (double) (float) damage);
+                                    player.damage(damage); // 0 - 1.5
+                                    player.setNoDamageTicks(0);
+                                }, i);
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
             }
-        }, 20 * 60 * 5 + RANDOM.nextInt(20 * 60 * 5)); // 5m - 10m
+        }, 10, 10);
     }
 }

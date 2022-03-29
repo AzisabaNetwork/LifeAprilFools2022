@@ -10,7 +10,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.NoSuchElementException;
 
 public class PacketUtil {
+    public static final boolean DISABLED = true;
+
     public static void inject(@NotNull Player player) {
+        if (DISABLED) return;
         ChannelHandler handler = new ChannelHandler();
         try {
             AprilFools2022.getVersionDependant().getChannel(player).pipeline().addBefore("packet_handler", "april_fools_2022", handler);
@@ -29,6 +32,7 @@ public class PacketUtil {
     }
 
     public static void eject(@NotNull Player player) {
+        if (DISABLED) return;
         try {
             if (AprilFools2022.getVersionDependant().getChannel(player).pipeline().get("april_fools_2022") != null) {
                 AprilFools2022.getVersionDependant().getChannel(player).pipeline().remove("april_fools_2022");
@@ -41,6 +45,7 @@ public class PacketUtil {
 
     @Nullable
     public static ChannelHandler getChannelHandler(@NotNull Player player) {
+        if (DISABLED) return null;
         try {
             return AprilFools2022.getVersionDependant().getChannel(player).pipeline().get(ChannelHandler.class);
         } catch (RuntimeException e) {
