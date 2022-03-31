@@ -55,7 +55,7 @@ public class AprilFools2022Plugin extends JavaPlugin {
     public void schedule() {
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!player.isDead() && RANDOM.nextInt(3600) < 10) {
+                if (!player.isDead() && RANDOM.nextInt(4) == 2) {
                     // 1 in ~3 minutes
                     for (ItemStack stack : player.getInventory()) {
                         if (stack != null && AprilFools2022.getVersionDependant().isRiceCooker(stack)) {
@@ -67,9 +67,9 @@ public class AprilFools2022Plugin extends JavaPlugin {
                                     float deltaZ = RANDOM.nextFloat() - 0.5f;
                                     float pitch = RANDOM.nextFloat();
                                     AprilFools2022.getVersionDependant().createExplosionEffect(player, deltaX, deltaY, deltaZ, pitch);
-                                    double damage = RANDOM.nextInt(150 + 1) / 100.0;
+                                    double damage = RANDOM.nextInt(Math.max(100, 100 + (int) player.getHealth() * 10)) / 100.0;
                                     LAST_DAMAGE.put(player.getUniqueId(), (double) (float) damage);
-                                    player.damage(damage); // 0 - 1.5
+                                    player.damage(damage); // 0 - 2.0
                                     player.setNoDamageTicks(0);
                                 }, i);
                             }
@@ -78,6 +78,6 @@ public class AprilFools2022Plugin extends JavaPlugin {
                     }
                 }
             }
-        }, 10, 10);
+        }, 20 * 10, 20 * 10);
     }
 }

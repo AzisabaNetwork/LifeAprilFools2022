@@ -1,6 +1,7 @@
 package net.azisaba.aprilFools2022.plugin.listener;
 
 import net.azisaba.aprilFools2022.common.util.PacketUtil;
+import net.azisaba.aprilFools2022.common.util.Precision;
 import net.azisaba.aprilFools2022.plugin.AprilFools2022Plugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +19,7 @@ public class PlayerListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (e.getEntity().getLastDamageCause() != null &&
                 e.getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.CUSTOM &&
-                e.getEntity().getLastDamage() == AprilFools2022Plugin.LAST_DAMAGE.get(e.getEntity().getUniqueId())) {
+                Precision.isAlmostSame(e.getEntity().getLastDamage(), AprilFools2022Plugin.LAST_DAMAGE.get(e.getEntity().getUniqueId()))) {
             e.setDeathMessage(e.getEntity().getName() + "の炊飯器が爆発した");
         }
     }
