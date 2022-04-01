@@ -19,7 +19,7 @@ public class PlayerListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (e.getEntity().getLastDamageCause() != null &&
                 e.getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.CUSTOM &&
-                Precision.isAlmostSame(e.getEntity().getLastDamage(), AprilFools2022Plugin.LAST_DAMAGE.get(e.getEntity().getUniqueId()))) {
+                Precision.isAlmostSame(e.getEntity().getLastDamage(), AprilFools2022Plugin.LAST_DAMAGE.getOrDefault(e.getEntity().getUniqueId(), 1145141919810d))) {
             e.setDeathMessage(e.getEntity().getName() + "の炊飯器が爆発した");
         }
     }
