@@ -10,15 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
 
 public class AprilFools2022Plugin extends JavaPlugin {
     private static final Random RANDOM = new Random();
-    public static final Map<UUID, Double> LAST_DAMAGE = new HashMap<>();
     private static AprilFools2022Plugin instance;
 
     @NotNull
@@ -67,9 +63,7 @@ public class AprilFools2022Plugin extends JavaPlugin {
                                     float deltaZ = RANDOM.nextFloat() - 0.5f;
                                     float pitch = RANDOM.nextFloat();
                                     AprilFools2022.getVersionDependant().createExplosionEffect(player, deltaX, deltaY, deltaZ, pitch);
-                                    double damage = RANDOM.nextInt(Math.max(100, 100 + (int) player.getHealth() * 10)) / 100.0;
-                                    LAST_DAMAGE.put(player.getUniqueId(), (double) (float) damage);
-                                    player.damage(damage); // 0 - 2.0
+                                    player.damage(1145141919810d);
                                     player.setNoDamageTicks(0);
                                 }, i);
                             }
